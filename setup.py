@@ -3,8 +3,7 @@
 from setuptools import find_packages, setup
 from types import FunctionType
 
-from choco_py import NAME
-
+from choco_py.main import NAME, main
 
 def get_entrypoint(ep: str, func: FunctionType) -> str:
     """Return formatted setuptools entrypoint string for function"""
@@ -24,9 +23,7 @@ if __name__ == '__main__':
         packages=find_packages(),
         install_requires=["win10toast>=0.9"],
         include_package_data=True,
-        entry_points={
-            "console_scripts": []
-        },
+        entry_points={"console_scripts": [get_entrypoint(NAME, main)]},
         classifiers=[
             "Development Status :: 1 - Planning",
             "Environment :: Console",

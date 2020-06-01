@@ -8,6 +8,9 @@ from typing import Union
 from win10toast import ToastNotifier
 
 
+NAME = "choco-py"
+
+
 class ChocoPy:
     """ChocoPy Application.""" 
 
