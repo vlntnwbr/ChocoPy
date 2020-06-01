@@ -38,7 +38,7 @@ class ChocoPy:
             self.error = f"'{exc.cmd} exited with code {exc.returncode}"
             return None
 
-        outdated = process.stdout.splitlines()[-1]        
+        outdated = re.findall(r"\b\d+\b", process.stdout.splitlines()[-1])
         return int(outdated[0])
 
     def notify(self, text: str = None, clickable: bool = True) -> None:
@@ -55,7 +55,7 @@ class ChocoPy:
             text = template.format(self.outdated, verb)
             if self.outdated > 0:
                 text += " Click to upgrade."
-        
+
         self.toast(
             title="Choco Py",
             msg=text,
