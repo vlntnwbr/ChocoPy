@@ -1,8 +1,10 @@
 # ChocoPy
-
 ChocoPy is a helper tool for the Windows package manager [Chocolatey][1]. It
 generates a notification displaying the number of updatable packages that can
 initiate the upgrade process when clicked.
+
+## Installation
+`pip install https://github.com/vlntnwbr/ChocoPy/archive/master.zip`
 
 ## Note
 This project includes a file from [win10toast][2] which was modified to include a

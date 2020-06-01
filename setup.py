@@ -1,14 +1,10 @@
 """Setup script."""
 
+import subprocess
+
 from setuptools import find_packages, setup
-from types import FunctionType
 
-from choco_py.main import NAME, main
-
-def get_entrypoint(ep: str, func: FunctionType) -> str:
-    """Return formatted setuptools entrypoint string for function"""
-    return "{} = {}:{}".format(ep, func.__module__, func.__name__)
-
+NAME = "choco-py"
 
 if __name__ == '__main__':
     setup(
@@ -20,10 +16,11 @@ if __name__ == '__main__':
         author="Valentin Weber",
         author_email="vweber@stud.hs-heilbronn.de",
         url="https://github.com/vlntnwbr/ChocoPy",
+        download_url="https://github.com/vlntnwbr/ChocoPy/archive/master.zip",
         packages=find_packages(),
-        install_requires=["win10toast>=0.9"],
+        install_requires=["win10toast>=0.0.9"],
         include_package_data=True,
-        entry_points={"console_scripts": [get_entrypoint(NAME, main)]},
+        entry_points={"console_scripts": [NAME + " = choco_py.main:main"]},
         classifiers=[
             "Development Status :: 1 - Planning",
             "Environment :: Console",
