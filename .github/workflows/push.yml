@@ -26,5 +26,4 @@ jobs:
     - name: PyLint
       id: pylint
       run: | 
-        pipenv shell
-        pylint -f colorized choco_py || pylint-exit -efail -wfail $?
+        pipenv run pylint -f colorized choco_py
