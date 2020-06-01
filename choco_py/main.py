@@ -19,7 +19,7 @@ class ChocoPy:
         self.error = None
         self.outdated = self._get_outdated()
 
-    def _get_outdated(self) -> Union[str, None]:
+    def _get_outdated(self) -> Union[int, None]:
         """Determine number of outdated chocolatey packages."""
 
         try:
@@ -55,6 +55,8 @@ class ChocoPy:
             text = template.format(self.outdated, verb)
             if self.outdated > 0:
                 text += " Click to upgrade."
+            else:
+                clickable = False
 
         self.toast(
             title="Choco Py",
