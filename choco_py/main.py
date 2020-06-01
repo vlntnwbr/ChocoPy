@@ -1,10 +1,11 @@
 """Application for choco-py"""
 
+import ctypes
 import subprocess
 import sys
-from types import FunctionType
 from typing import Union
 
+import win32api
 from .win10toast import ToastNotifier
 
 
@@ -17,16 +18,6 @@ class ChocoPy:
         self.toast = toaster.show_toast
         self.error = None
         self.outdated = self._get_outdated()
-
-    def notify(self, text: str, click: FunctionType = None) -> None:
-        """Show a choco-py notification"""
-
-        self.toast(
-            title="Choco Py",
-            msg=text,
-            icon_path=None,
-            callback_on_click=click
-        )
 
     def _get_outdated(self) -> Union[str, None]:
         """Determine number of outdated chocolatey packages."""
@@ -49,6 +40,29 @@ class ChocoPy:
 
         return process.stdout.splitlines()[-1].strip()
 
+    def notify(self, text: str = None, click: bool = True) -> None:
+        """Show a choco-py notification"""
+
+        msg = "Click to install available updates."
+        text = self.outdated + msg if text is None else text
+        click = self.start_upgrade if click is True else None
+
+        self.toast(
+            title="Choco Py",
+            msg=text,
+            icon_path=None,
+            callback_on_click=click
+        )
+
+
+    @staticmethod
+    def start_upgrade():
+        """Execute choco upgrade with elevated privileges."""
+
+        win32api.ShellExecute(
+            0, "runas", "choco", "upgrade all -y", None, 1
+        )
+
 
 def main():
     """Entrypoint for choco-py."""
@@ -56,10 +70,10 @@ def main():
     choco = ChocoPy()
 
     if choco.outdated is None:
-        choco.notify(choco.error)
+        choco.notify(choco.error, False)
         sys.exit(choco.error)
 
-    choco.notify(choco.outdated)
+    choco.notify()
 
 
 if __name__ == "__main__":

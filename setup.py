@@ -9,7 +9,7 @@ NAME = "choco-py"
 if __name__ == '__main__':
     setup(
         name=NAME,
-        version="0.1.0",
+        version="0.1.1",
         description="Chocolatey update check and upgrade notification.",
         license="GPLv3",
         platforms=["Windows"],
