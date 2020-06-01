@@ -4,5 +4,6 @@
 /.idea/
 /.vscode/
 /__pychache__/
-/choco_py/__pychache__/
 *.egg-info/
+
+*.pyc
