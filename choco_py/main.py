@@ -1,6 +1,7 @@
 """Application for choco-py"""
 
 import ctypes
+import re
 import subprocess
 import sys
 from typing import Union
@@ -37,20 +38,29 @@ class ChocoPy:
             self.error = f"'{exc.cmd} exited with code {exc.returncode}"
             return None
 
-        return process.stdout.splitlines()[-1].strip()
+        outdated = process.stdout.splitlines()[-1]        
+        return int(outdated[0])
 
-    def notify(self, text: str = None, click: bool = True) -> None:
+    def notify(self, text: str = None, clickable: bool = True) -> None:
         """Show a choco-py notification"""
 
-        msg = " Click to install updates."
-        text = self.outdated + msg if text is None else text
-        click = self.start_upgrade if click is True else None
+        if text is None:
+            template = "Chocolatey has determined {} package{} outdated."
 
+            if self.outdated == 1:
+                verb = " is"
+            else:
+                verb = "s are"
+
+            text = template.format(self.outdated, verb)
+            if self.outdated > 0:
+                text += " Click to upgrade."
+        
         self.toast(
             title="Choco Py",
             msg=text,
             icon_path=None,
-            callback_on_click=click
+            callback_on_click=self.start_upgrade if clickable is True else None
         )
 
 

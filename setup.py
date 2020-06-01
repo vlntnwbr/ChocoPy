@@ -20,7 +20,7 @@ if __name__ == '__main__':
         packages=find_packages(),
         install_requires=["win10toast>=0.0.9"],
         include_package_data=True,
-        entry_points={"gui_scripts": [NAME + " = choco_py.main:main"]},
+        entry_points={"console_scripts": [NAME + " = choco_py.main:main"]},
         classifiers=[
             "Development Status :: 1 - Planning",
             "Operating System :: Microsoft :: Windows :: Windows 10",
