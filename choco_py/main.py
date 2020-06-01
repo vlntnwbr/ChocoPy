@@ -5,7 +5,6 @@ import subprocess
 import sys
 from typing import Union
 
-import win32api
 from .win10toast import ToastNotifier
 
 
@@ -43,7 +42,7 @@ class ChocoPy:
     def notify(self, text: str = None, click: bool = True) -> None:
         """Show a choco-py notification"""
 
-        msg = "Click to install available updates."
+        msg = " Click to install updates."
         text = self.outdated + msg if text is None else text
         click = self.start_upgrade if click is True else None
 
@@ -59,7 +58,7 @@ class ChocoPy:
     def start_upgrade():
         """Execute choco upgrade with elevated privileges."""
 
-        win32api.ShellExecute(
+        ctypes.windll.shell32.ShellExecuteW(
             0, "runas", "choco", "upgrade all -y", None, 1
         )
 
