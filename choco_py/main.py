@@ -27,15 +27,16 @@ class ChocoPy:
                 "choco outdated",
                 capture_output=True,
                 text=True,
-                check=True
+                check=True,
+                shell=True  # No extra console window for gui_script
             )
 
         except FileNotFoundError:  # choco is not installed
-            self.error = "Could not locate Chocolatey"
+            self.error = "Could not locate Chocolatey."
             return None
 
         except subprocess.CalledProcessError as exc:
-            self.error = f"'{exc.cmd} exited with code {exc.returncode}"
+            self.error = f"'{exc.cmd} exited with code {exc.returncode}."
             return None
 
         outdated = re.findall(r"\b\d+\b", process.stdout.splitlines()[-1])
@@ -45,23 +46,24 @@ class ChocoPy:
         """Show a choco-py notification"""
 
         if text is None:
-            template = "Chocolatey has determined {} package{} outdated."
 
+            base = "Chocolatey has determined {count} package{num} outdated."
             if self.outdated == 1:
-                verb = " is"
+                num_verb = " is"
             else:
-                verb = "s are"
+                num_verb = "s are"
+            message = base.format(count=self.outdated, num=num_verb)
 
-            text = template.format(self.outdated, verb)
             if self.outdated > 0:
-                text += " Click to upgrade."
+                message += " Click to upgrade."
             else:
                 clickable = False
 
         self.toast(
             title="Choco Py",
-            msg=text,
+            msg=message,
             icon_path=None,
+            duration=30,
             callback_on_click=self.start_upgrade if clickable is True else None
         )
 
@@ -71,7 +73,7 @@ class ChocoPy:
         """Execute choco upgrade with elevated privileges."""
 
         ctypes.windll.shell32.ShellExecuteW(
-            0, "runas", "choco", "upgrade all -y", None, 1
+            None, "runas", "choco", "upgrade all -y", None, 3
         )
 
 

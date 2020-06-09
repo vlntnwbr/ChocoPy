@@ -9,7 +9,7 @@ NAME = "choco-py"
 if __name__ == '__main__':
     setup(
         name=NAME,
-        version="0.1.6",
+        version="0.2.0",
         description="Chocolatey update check and upgrade notification.",
         license="GPLv3",
         platforms=["Windows"],
@@ -21,8 +21,7 @@ if __name__ == '__main__':
         install_requires=["win10toast>=0.0.9"],
         include_package_data=True,
         entry_points={
-            "console_scripts": [NAME + " = choco_py.main:main"],
-            "gui_scripts": [NAME + "-gui = choco_py.main:main"]
+            "gui_scripts": [NAME + " = choco_py.main:main"]
         },
         classifiers=[
             "Development Status :: 1 - Planning",
