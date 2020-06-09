@@ -1,6 +1,7 @@
 """Application for choco-py"""
 
 import ctypes
+import os
 import re
 import subprocess
 import sys
@@ -18,6 +19,9 @@ class ChocoPy:
         self.toast = toaster.show_toast
         self.error = None
         self.outdated = self._get_outdated()
+        self.icon = os.path.join(
+            os.path.abspath(os.path.dirname(__file__)), "res", "choco-py.ico"
+        )
 
     def _get_outdated(self) -> Union[int, None]:
         """Determine number of outdated chocolatey packages."""
@@ -62,7 +66,7 @@ class ChocoPy:
         self.toast(
             title="Choco Py",
             msg=message,
-            icon_path=None,
+            icon_path=self.icon,
             duration=30,
             callback_on_click=self.start_upgrade if clickable is True else None
         )

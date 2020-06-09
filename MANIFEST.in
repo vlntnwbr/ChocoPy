@@ -1,3 +1,5 @@
+graft choco_py/res
+
 include requirements.txt
 include README.md
 include LICENSE
