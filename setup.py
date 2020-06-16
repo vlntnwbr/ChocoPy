@@ -1,7 +1,5 @@
 """Setup script."""
 
-import subprocess
-
 from setuptools import find_packages, setup
 
 NAME = "choco-py"
