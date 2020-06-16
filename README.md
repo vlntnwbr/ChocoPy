@@ -1,4 +1,4 @@
-![](https://github.com/vlntnwbr/HanserPyLibrary/workflows/Check/badge.svg)
+![Push](https://github.com/vlntnwbr/ChocoPy/workflows/Push/badge.svg)
 
 # ChocoPy
 ChocoPy is a helper tool for the Windows package manager [Chocolatey][1]. It
