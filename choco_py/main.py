@@ -9,16 +9,13 @@ from typing import Union
 
 from .win10toast import ToastNotifier
 
-# TODO: ChocoPy inherits from ToastNotifier
-# TODO: TEST: replace requirement win10toast by its dependencies
 
-class ChocoPy:
+class ChocoPy(ToastNotifier):
     """ChocoPy Application."""
 
     def __init__(self):
 
-        toaster = ToastNotifier()
-        self.toast = toaster.show_toast
+        super().__init__()
         self.error = None
         self.outdated = self._get_outdated()
         self.icon = os.path.join(
@@ -65,7 +62,7 @@ class ChocoPy:
             else:
                 clickable = False
 
-        self.toast(
+        self.show_toast(
             title="Choco Py",
             msg=message,
             icon_path=self.icon,
