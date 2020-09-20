@@ -9,6 +9,8 @@ from setuptools import find_packages, setup
 NAME = "choco-py"
 REQUIREMENTS_TXT = "requirements.txt"
 HEREDIR = os.path.abspath(os.path.dirname(__file__))
+DOWNLOAD = "https://github.com/vlntnwbr/chocopy/" \
+    "releases/latest/download/choco-py.tar.gz"
 
 
 def open_local(filename: str, mode: str = "r") -> TextIO:
@@ -71,7 +73,7 @@ if __name__ == '__main__':
         author="Valentin Weber",
         author_email="vweber@stud.hs-heilbronn.de",
         url="https://github.com/vlntnwbr/chocopy",
-        download_url="https://github.com/vlntnwbr/chocopy/archive/master.zip",
+        download_url=DOWNLOAD,
         packages=find_packages(),
         install_requires=REQUIREMENTS,
         include_package_data=True,

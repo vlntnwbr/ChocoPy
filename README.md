@@ -1,4 +1,4 @@
-# ChocoPy ![](![](https://github.com/vlntnwbr/chocopy/workflows/Tests/badge.svg))
+# ChocoPy ![](https://github.com/vlntnwbr/chocopy/workflows/Tests/badge.svg)
 
 ChocoPy is a helper tool for the Windows package manager [Chocolatey][1]. It
 generates a notification displaying the number of updatable packages that can
@@ -8,11 +8,11 @@ initiate the upgrade process when clicked.
 Installing through [pipx][1] isolates packages in their own environment and
 exposes their entrypoints via PATH.
 ```
-pipx install https://github.com/vlntnwbr/chocopy/archive/master.zip
+pipx install https://github.com/vlntnwbr/chocopy/releases/latest/download/choco-py.tar.gz
 ```
 Alternatively install regularly via pip: 
 ```
-pip install https://github.com/vlntnwbr/chocopy/archive/master.zip
+pip install https://github.com/vlntnwbr/chocopy/releases/latest/download/choco-py.tar.gz
 ```
 
 ## Credits
