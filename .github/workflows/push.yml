@@ -1,11 +1,14 @@
-name: Push
-on:
+name: Tests
+
+on: 
   push:
-    branches: 
+    tags: 
+      - v*
+    branches:
       - master
 
 jobs:
-  codecheck:
+  build:
 
     runs-on: windows-latest
 
@@ -15,14 +18,49 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: 3.8
-
-    - name: Lock and install dependencies
+    - name: Set up Environment  # replace package name
       id: prep
       run: |
-        python -m pip install --upgrade pip
-        python -m pip install pipenv
+        python -m pip install -q --upgrade pip setuptools
+        pip install -q pipenv
         pipenv install -d
-    - name: PyLint
+        pipenv graph
+        echo "::set-env name=package::choco_py"
+    - name: Run Pylint
+      if: ${{ github.ref == 'refs/heads/master' }}
       id: pylint
+      run: pipenv run pylint -f colorized ${{ env.package }} || pipenv run pylint-exit -efail -wfail $?
+    - name: Run Flake8
+      if: ${{ github.ref == 'refs/heads/master' }}
+      id: flake8
+      run : pipenv run flake8 --exit-zero --doctests --max-doc-length 72 ${{ env.package }}
+    - name: Build Source Distribution
+      id: build
       run: |
-        pipenv run pylint -f colorized choco_py || pipenv run pylint-exit -efail -wfail $?
+        name=$(python setup.py --name)
+        version=$(python setup.py --version)
+        echo "::set-env name=name::${name}"
+        echo "::set-env name=sdist::${name}-${version}.tar.gz"
+        python setup.py sdist
+    - name: Create Release
+      if: ${{ startsWith( github.ref, 'refs/tags/v' ) }}
+      id: release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: ${{ env.name }} ${{ github.ref }}
+        body: |
+          For more details see https:/github.com/vlntnwbr/PyWhere/tree/${{ github.ref }}
+    - name: Upload Source Distribution
+      if: ${{ startsWith( github.ref, 'refs/tags/v' ) }}
+      id: upload
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.release.outputs.upload_url }}
+        asset_path: .\dist\${{ env.sdist }}
+        asset_name: ${{ env.name }}.tar.gz
+        asset_content_type: application/gzip

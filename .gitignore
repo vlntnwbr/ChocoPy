@@ -3,7 +3,7 @@
 /.venv/
 /.idea/
 /.vscode/
-/__pychache__/
+/__pycache__/
 *.egg-info/
 
 *.pyc

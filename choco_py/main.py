@@ -9,6 +9,8 @@ from typing import Union
 
 from .win10toast import ToastNotifier
 
+# TODO: ChocoPy inherits from ToastNotifier
+# TODO: TEST: replace requirement win10toast by its dependencies
 
 class ChocoPy:
     """ChocoPy Application."""
@@ -67,7 +69,7 @@ class ChocoPy:
             title="Choco Py",
             msg=message,
             icon_path=self.icon,
-            duration=30,
+            duration=None,
             callback_on_click=self.start_upgrade if clickable is True else None
         )
 
@@ -77,7 +79,7 @@ class ChocoPy:
         """Execute choco upgrade with elevated privileges."""
 
         ctypes.windll.shell32.ShellExecuteW(
-            None, "runas", "choco", "upgrade all -y", None, 3
+            None, "runas", "choco", "upgrade all", None, 3
         )
 
 
