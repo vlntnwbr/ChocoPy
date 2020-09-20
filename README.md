@@ -1,4 +1,4 @@
-# ChocoPy ![](https://github.com/vlntnwbr/ChocoPy/workflows/Push/badge.svg)
+# ChocoPy ![](![](https://github.com/vlntnwbr/chocopy/workflows/Tests/badge.svg))
 
 ChocoPy is a helper tool for the Windows package manager [Chocolatey][1]. It
 generates a notification displaying the number of updatable packages that can

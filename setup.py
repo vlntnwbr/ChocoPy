@@ -63,7 +63,7 @@ if __name__ == '__main__':
     REQUIREMENTS = read_requirements()
     setup(
         name=NAME,
-        version="0.2.1",
+        version="0.3.0",
         description="Chocolatey update check and upgrade notification.",
         long_description=README,
         license="GPLv3",
