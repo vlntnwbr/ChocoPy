@@ -5,14 +5,14 @@ generates a notification displaying the number of updatable packages that can
 initiate the upgrade process when clicked.
 
 ## Installation
-Installing through [pipx][1] isolates packages in their own environment and
-exposes their entrypoints via PATH.
+Installing with [pipx][1] isolates packages in their own environment and
+exposes their entrypoints on PATH.
 ```
-pipx install https://github.com/vlntnwbr/chocopy/releases/latest/download/choco-py.tar.gz
+pipx install https://github.com/vlntnwbr/choco-py/releases/latest/download/choco-py.tar.gz
 ```
-Alternatively install regularly via pip: 
+Alternatively install with pip: 
 ```
-pip install https://github.com/vlntnwbr/chocopy/releases/latest/download/choco-py.tar.gz
+pip install https://github.com/vlntnwbr/choco-py/releases/latest/download/choco-py.tar.gz
 ```
 
 ## Credits
